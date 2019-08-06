@@ -58,7 +58,7 @@ def pridict(request):#, Base_currency, Target_currency, Amount, Max_wait_time, s
 			set_result1 = dict(set_result1)
 			set_result1['ds'] = set_result1['ds'].strftime("%d/%m/%Y")
 			Amount = float(Amount)			
-			set_result1['yhat'] = str("%.3f"%(set_result1['yhat'] * Amount))+" $"
+			set_result1['yhat'] = str("%.3f"%(set_result1['yhat'] * Amount))+" Rs"
 		else:
 			set_result1['ds']="something went wrong"
 			set_result1['yhat']="something went wrong"	
