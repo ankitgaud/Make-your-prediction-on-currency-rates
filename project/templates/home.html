@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		.btn1{background-color: #14086e; color: white;}
+		.color1{color: #14086e;}
+		.pridict{border-radius: 3px; background-color: white; color:#14086e;font-weight:bold; }
+	</style>
+	
+</head>
+<body style="background-color: #bbb5eb;">
+	<div class="jumbotron text-center" style="background-color: #14086e;color: white;">
+ 		<h1>Currency Average Rate</h1>
+  		<p>View last three months of exchange rate data</p>
+  		<input type="button" value="Make Pridiction" class="pridict">
+
+	</div>
+	<div class="jumbotron text-center" style="margin-top: -2em; background-color: #bbb5eb; color: white;">
+		<h3>Currency pairs</h3>
+		<input type="button" class="btn btn1" value="INR - USD" id="bt1">
+		<input type="button" class="btn btn1" value="USD - INR" id="bt2">
+	</div>
+	<div class="container">
+  		<div class="jumbotron text-center">
+  		<h4 class="color1" id="h4">USD - INR</h4>
+			<table class="table color1">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Rates</th>
+					</tr>
+				</thead>
+				<tbody id="tbdy">
+					{% for data in context %}
+					<tr>
+						<td>{{ data.PointInTime_UTC }}</td> 
+						<td>{{ data.InterbankRate }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>  			
+  		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bt1").click(function(){
+			$("#tbdy").html("{% for data in context %}<tr><td>{{ data.PointInTime_UTC }}</td> <td>{{ data.RevInterbankRate }}</td></tr>{% endfor %}");
+			$("#h4").text("INR - USD");
+		});
+		$("#bt2").click(function(){
+			$("#tbdy").html("{% for data in context %}<tr><td>{{ data.PointInTime_UTC }}</td> <td>{{ data.InterbankRate }}</td></tr>{% endfor %}");
+			$("#h4").text("USD - INR");
+		});
+		$(".pridict").click(function(){
+			window.location.href = "/input_/";
+		});
+	});
+</script>
+</html>
